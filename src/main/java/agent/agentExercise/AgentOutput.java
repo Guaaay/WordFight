@@ -1,8 +1,8 @@
-package agent.agentExercise;
+package main.java.agent.agentExercise;
 
-import agent.launcher.AgentBase;
-import agent.launcher.AgentModel;
-import auxiliar.TelegramBot;
+import main.java.agent.launcher.AgentBase;
+import main.java.agent.launcher.AgentModel;
+import main.java.auxiliar.TelegramBot;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 

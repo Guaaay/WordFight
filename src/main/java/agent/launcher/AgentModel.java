@@ -1,4 +1,4 @@
-package agent.launcher;
+package main.java.agent.launcher;
 
 public enum AgentModel {
 

@@ -1,4 +1,4 @@
-package agent.launcher;
+package main.java.agent.launcher;
 
 import java.util.Arrays;
 

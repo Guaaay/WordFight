@@ -1,4 +1,4 @@
-package agent.agentExercise;
+package main.java.agent.agentExercise;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import agent.launcher.AgentBase;
-import agent.launcher.AgentModel;
-import auxiliar.SqlConnection;
-import auxiliar.Tokens;
+import main.java.agent.launcher.AgentBase;
+import main.java.agent.launcher.AgentModel;
+import main.java.auxiliar.SqlConnection;
+import main.java.auxiliar.Tokens;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;

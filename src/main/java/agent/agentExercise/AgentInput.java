@@ -1,4 +1,4 @@
-package agent.agentExercise;
+package main.java.agent.agentExercise;
 
 import java.util.Map;
 
@@ -6,9 +6,9 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import agent.launcher.AgentBase;
-import agent.launcher.AgentModel;
-import auxiliar.TelegramBot;
+import main.java.agent.launcher.AgentBase;
+import main.java.agent.agent.launcher.AgentModel;
+import main.java.agent.auxiliar.TelegramBot;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;

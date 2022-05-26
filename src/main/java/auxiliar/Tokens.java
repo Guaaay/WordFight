@@ -1,4 +1,4 @@
-package auxiliar;
+package main.java.auxiliar;
 
 import java.sql.Connection;
 

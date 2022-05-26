@@ -1,12 +1,12 @@
-package agent.launcher;
+package main.java.agent.launcher;
 
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.StaleProxyException;
 import java.io.IOException;
 
-import agent.agentExercise.AgentInput;
-import agent.agentExercise.AgentOutput;
+import main.java.agent.agentExercise.AgentInput;
+import main.java.agent.agentExercise.AgentOutput;
 
 
 public class Main {
