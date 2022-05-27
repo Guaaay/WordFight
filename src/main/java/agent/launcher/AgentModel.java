@@ -5,7 +5,8 @@ public enum AgentModel {
 	INPUT("Input"),
 	PROCESS("Process"),
 	OUTPUT("Output"),
-	DESCONOCIDO("Desconocido");
+	DESCONOCIDO("Desconocido"),
+	ANALYZER("Analyzer");
 
 	private final String value;
 
@@ -25,6 +26,8 @@ public enum AgentModel {
 			return PROCESS;
 		case "Output":
 			return OUTPUT;
+		case "Analyzer":
+			return ANALYZER;
 		default:
 			return DESCONOCIDO;
 		}

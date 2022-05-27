@@ -206,7 +206,6 @@ public class TelegramBot extends TelegramLongPollingBot{
 	/**
 	 * Se devuelve el nombre que dimos al bot al crearlo con el BotFather
 	 */
-	@Override
 	public String getBotUsername() {
 		return "WordBender_bot";
 	}
