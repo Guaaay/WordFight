@@ -1,5 +1,9 @@
 package auxiliar;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -204,7 +208,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 	 */
 	@Override
 	public String getBotUsername() {
-		return "BOT_NAME";
+		return "WordBender_bot";
 	}
 
 	/**
@@ -212,7 +216,22 @@ public class TelegramBot extends TelegramLongPollingBot{
 	 */
 	@Override
 	public String getBotToken() {
-		return "API_KEY";
+		 FileReader file;
+		try {
+			file = new FileReader("src/main/java/auxiliar/key.txt");
+			BufferedReader buffer = new BufferedReader(file);
+
+	        //read the 1st line
+		    String line = buffer.readLine();
+		      //display the 1st line
+		    return line;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		}
+	      
+		
 	}
 
 	/**
