@@ -37,7 +37,7 @@ public class AgentProcess extends AgentBase {
 		//Envía una alerta al bot
 		@Override
 		public void action() {
-			checkDefense();
+			checkDefense(); //mierda de que si el personaje esta defendiendo no hace falta
 			String toSend = "Nada que reportar";
 			if(text.contains(Tokens.command3)) {
 				toSend = attackNPC();
