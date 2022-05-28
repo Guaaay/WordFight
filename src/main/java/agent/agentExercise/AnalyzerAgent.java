@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.LanguageServiceClient;
@@ -40,63 +41,66 @@ public class AnalyzerAgent extends AgentBase{
 
 		@Override
 		public void action() {
+			String sentiment = "";
 			ACLMessage message = receive();
 			if(message!=null) {
-				JsonObject output = finalJSON(message.getContent());
-				try {
-					LocalTime l = LocalTime.now();
-					Gson gson = new GsonBuilder().setPrettyPrinting().create();
-					Files.writeString(Paths.get("Exports\\sentiments"+l.getHour()+l.getMinute()+l.getSecond()+".json"),
-							gson.toJson(output));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				AID senderID = message.getSender();
+				sentiment = getSentiment(message.getContent());
+				//Creo que tampoco necesitamos
+//				try {
+//					LocalTime l = LocalTime.now();
+//					Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//					Files.writeString(Paths.get("Exports\\sentiments"+l.getHour()+l.getMinute()+l.getSecond()+".json"),
+//							gson.toJson(output));
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+				ACLMessage finish = new ACLMessage(ACLMessage.INFORM);
+				finish.setSender(getAID());
+				finish.addReceiver(senderID);
+				finish.setContent(sentiment);
+				send(finish);
 			}
-			ACLMessage finish = new ACLMessage(ACLMessage.REQUEST);
-			finish.setSender(getAID());
-			AID id = new AID("Filter@192.168.56.1:1200/JADE", AID.ISGUID);
-			finish.addReceiver(id);
-			finish.setContent("Ready");
-			send(finish);
 			block();
 		}
 
 
-		public JsonObject finalJSON(String json) {
-			JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-			JsonArray tweetsArray = jsonObject.getAsJsonArray("Tweets");
-			JsonObject output = new JsonObject();
-			JsonArray arrayOfTweets = new JsonArray();
-			for(JsonElement tweets : tweetsArray) {
-				Sentiments result = new Sentiments();
-				JsonObject tweetsText = tweets.getAsJsonObject();
-				String getText;
-				try {
-					getText = new String(tweetsText.get("Text").getAsString().getBytes(),"UTF-8");
-					result = getSentiment(getText);
-					tweetsText.addProperty("score", result.getScore());
-					tweetsText.addProperty("magnitude", result.getMagnitude());
-					arrayOfTweets.add(tweetsText);
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-			}
-			output.add("Tweets", arrayOfTweets);
-			return output;
-		}
+		//Creo que no lo necesitamos para nada
+//		public JsonObject finalJSON(String json) {
+//			JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+//			JsonArray tweetsArray = jsonObject.getAsJsonArray("Tweets");
+//			JsonObject output = new JsonObject();
+//			JsonArray arrayOfTweets = new JsonArray();
+//			for(JsonElement tweets : tweetsArray) {
+//				ArrayList<Float> result = new ArrayList<Float>();
+//				JsonObject tweetsText = tweets.getAsJsonObject();
+//				String getText;
+//				try {
+//					getText = new String(tweetsText.get("Text").getAsString().getBytes(),"UTF-8");
+//					result = getSentiment(getText);
+//					tweetsText.addProperty("score", result.get(0));
+//					tweetsText.addProperty("magnitude", result.get(1));
+//					arrayOfTweets.add(tweetsText);
+//				} catch (UnsupportedEncodingException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			output.add("Tweets", arrayOfTweets);
+//			return output;
+//		}
 
 
-		private Sentiments getSentiment(String tweets){
-			Sentiments output = new Sentiments(0, 0);
+		private String getSentiment(String text){
+			String result = "";
 			try (LanguageServiceClient language = LanguageServiceClient.create()) {
-				Document doc = Document.newBuilder().setContent(tweets).setType(Type.PLAIN_TEXT).build();
+				Document doc = Document.newBuilder().setContent(text).setType(Type.PLAIN_TEXT).build();
 				Sentiment sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
-				output.setScore(sentiment.getScore());
-				output.setMagnitude(sentiment.getMagnitude());
+				result = result + sentiment.getScore() + "_";
+				result = result + sentiment.getMagnitude();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return output;
+			return result;
 		}
 	}
 }
