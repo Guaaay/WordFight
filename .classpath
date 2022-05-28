@@ -24,41 +24,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Users/odint/git/WordFight/Library/jade.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/odint/git/WordFight/Library/mysql-connector-java-8.0.20.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/org.json.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/checker-compat-qual-2.5.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/error_prone_annotations-2.5.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/failureaccess-1.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-android-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-appengine-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-gson-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-jackson2-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-java6-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-protobuf-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-servlet-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-api-client-xml-1.32.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-http-client-1.39.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-http-client-apache-v2-1.39.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-http-client-appengine-1.39.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-http-client-gson-1.39.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-http-client-protobuf-1.39.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-http-client-xml-1.39.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-oauth-client-1.31.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/google-oauth-client-java6-1.31.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/grpc-context-1.27.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/gson-2.8.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/guava-30.1.1-android.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/httpclient-4.5.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/httpcore-4.4.14.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/j2objc-annotations-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/jsr305-3.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/opencensus-api-0.28.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/opencensus-contrib-http-util-0.28.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/protobuf-java-3.17.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/odint/git/WordFight/Library/xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aloco/git/WordFight/Library/jade.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aloco/git/WordFight/Library/mysql-connector-java-8.0.20.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aloco/git/WordFight/Library/telegrambots-meta-6.0.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

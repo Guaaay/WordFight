@@ -2,7 +2,11 @@ package auxiliar;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 public class SqlConnection { 
 
@@ -21,7 +25,8 @@ public class SqlConnection {
         } catch (ClassNotFoundException e) {
             System.out.println("Driver no encontrado."); 
         }
+        
         return conn;
+        
     }
-    
 }

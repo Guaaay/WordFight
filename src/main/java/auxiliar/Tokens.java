@@ -5,12 +5,12 @@ import java.sql.Connection;
 public class Tokens {
 
     public static final String driver = "com.mysql.cj.jdbc.Driver";   
-    public static final String url = "jdbc:mysql://localhost:3306/mas";    
-    public static final String user = "agent";   
-    public static final String pass = "mientras";
+    public static final String url = "jdbc:mysql://localhost:3306/wordbender";    
+    public static final String user = "wordbender";   
+    public static final String pass = "wordbenderdb";
     public static String urlstring;
     
-    public static final String command1 = "/ayuda";
+    public static final String command1 = "/start";
     public static final String command2 = "/crearpj";
     public static final String command3 = "/atacarnpc";
     public static final String command31 = "/lobo";

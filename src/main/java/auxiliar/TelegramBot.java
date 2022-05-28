@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -23,7 +23,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 
-public class TelegramBot extends TelegramLongPollingBot{
+public class TelegramBot {
 
 	public static HashMap<Long,String> pending;
 	private Connection conn;
@@ -38,94 +38,108 @@ public class TelegramBot extends TelegramLongPollingBot{
 	 */
 	@Override
 	public void onUpdateReceived(Update update) {
-		// Se obtiene el mensaje escrito por el usuario
-		String messageTextReceived = update.getMessage().getText();
-		// Se obtiene el id de chat del usuario
-		final long chatId = update.getMessage().getChatId();
-		// Se crea un objeto mensaje
-		SendMessage message = new SendMessage().setChatId(chatId).setText("A la aventura!");
-		Message msg = update.getMessage();
-		boolean checkPlayerExists = false;
-		switch(messageTextReceived) {
-		case Tokens.command1:
-			message = new SendMessage().setChatId(chatId).setText("Bienvenido! \n Primero, "
-					+ "deberás crear un personaje, utiliza el comando /crearpj para crearlo. \n Una vez creado, podrás lanzarte a la aventura!");
-			break;
-		case Tokens.command2:
-			String sql = Tokens.createPJ;
+		if (update.hasMessage() && update.getMessage().hasText()) {
+			SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
+			message.setChatId(update.getMessage().getChatId().toString());
+			message.setText("Preparado para usar tus pa,labras para el bien... o quisas el mal.... ;DDDDDD");
+
 			try {
-				PreparedStatement ps = conn.prepareStatement(sql);
-				ps.setLong(1, chatId);
-				ps.executeUpdate();
-				message = new SendMessage().setChatId(chatId).setText("Personaje creado.");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+				execute(message); // Call method to send the message
+			} catch (TelegramApiException e) {
+				e.printStackTrace();
+
 			}
-			break;
-		case Tokens.command3:
-			SendMessage answer = new SendMessage();
-			answer.enableMarkdown(true);
-			answer.setReplyMarkup(getSettingsKeyboard(Tokens.command31, Tokens.command32));
-			answer.setReplyToMessageId(msg.getMessageId());
-			answer.setChatId(msg.getChatId());
-			answer.setText(Tokens.command1);
-			message = sendChooseOptionMessage(chatId, msg.getMessageId(), getSettingsKeyboard(Tokens.command31, Tokens.command32));
-			break;
-		case Tokens.command31:
-			checkPlayerExists = checkPlayer(chatId);
-			if(!checkPlayerExists) {
-				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
-			}else {
-				messageTextReceived = Tokens.command3 + messageTextReceived;
-				pending.put(chatId, messageTextReceived);
-			}
-			break;
-		case Tokens.command32:
-			checkPlayerExists = checkPlayer(chatId);
-			if(!checkPlayerExists) {
-				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
-			}else {
-				messageTextReceived = Tokens.command3 + messageTextReceived;
-				pending.put(chatId, messageTextReceived);
-			}
-			break;
-		case Tokens.command4:
-			checkPlayerExists = checkPlayer(chatId);
-			if(!checkPlayerExists) {
-				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
-			}else {
-				pending.put(chatId, messageTextReceived);
-			}
-			break;
-		case Tokens.command5:
-			checkPlayerExists = checkPlayer(chatId);
-			if(!checkPlayerExists) {
-				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
-			}else {
-				pending.put(chatId, messageTextReceived);
-			}
-			break;
-		case Tokens.command6:
-			checkPlayerExists = checkPlayer(chatId);
-			if(!checkPlayerExists) {
-				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
-			}else {
-				String[] playerStat= consultarStats(chatId);
-				message = new SendMessage().setChatId(chatId).setText("Nivel: " + playerStat[0] + "\nAtaque: " + playerStat[1] + "\nDefensa: " 
-							+ playerStat[2] + "\nExperiencia: " + playerStat[3]+ "\\10\nDefensa activa: " + playerStat[4]);
-			}
-			break;
-		default:
-			message = new SendMessage().setChatId(chatId).setText("Comando no valido.");				
-			break;
 		}
-		try {
-			// Se envía el mensaje
-			execute(message);
-		} catch (TelegramApiException e) {
-			e.printStackTrace();
-		}
+
 	}
+//		// Se obtiene el mensaje escrito por el usuario
+//		String messageTextReceived = update.getMessage().getText();
+//		// Se obtiene el id de chat del usuario
+//		final long chatId = update.getMessage().getChatId();
+//		// Se crea un objeto mensaje
+//		SendMessage message = new SendMessage().setChatId(chatId).setText("A la aventura!");
+//		Message msg = update.getMessage();
+//		boolean checkPlayerExists = false;
+//		switch(messageTextReceived) {
+//		case Tokens.command1:
+//			message = new SendMessage().setChatId(chatId).setText("Bienvenido! \n Primero, "
+//					+ "deberás crear un personaje, utiliza el comando /crearpj para crearlo. \n Una vez creado, podrás lanzarte a la aventura!");
+//			break;
+//		case Tokens.command2:
+//			String sql = Tokens.createPJ;
+//			try {
+//				PreparedStatement ps = conn.prepareStatement(sql);
+//				ps.setLong(1, chatId);
+//				ps.executeUpdate();
+//				message = new SendMessage().setChatId(chatId).setText("Personaje creado.");
+//			} catch (SQLException e1) {
+//				e1.printStackTrace();
+//			}
+//			break;
+//		case Tokens.command3:
+//			SendMessage answer = new SendMessage();
+//			answer.enableMarkdown(true);
+//			answer.setReplyMarkup(getSettingsKeyboard(Tokens.command31, Tokens.command32));
+//			answer.setReplyToMessageId(msg.getMessageId());
+//			answer.setChatId(msg.getChatId());
+//			answer.setText(Tokens.command1);
+//			message = sendChooseOptionMessage(chatId, msg.getMessageId(), getSettingsKeyboard(Tokens.command31, Tokens.command32));
+//			break;
+//		case Tokens.command31:
+//			checkPlayerExists = checkPlayer(chatId);
+//			if(!checkPlayerExists) {
+//				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
+//			}else {
+//				messageTextReceived = Tokens.command3 + messageTextReceived;
+//				pending.put(chatId, messageTextReceived);
+//			}
+//			break;
+//		case Tokens.command32:
+//			checkPlayerExists = checkPlayer(chatId);
+//			if(!checkPlayerExists) {
+//				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
+//			}else {
+//				messageTextReceived = Tokens.command3 + messageTextReceived;
+//				pending.put(chatId, messageTextReceived);
+//			}
+//			break;
+//		case Tokens.command4:
+//			checkPlayerExists = checkPlayer(chatId);
+//			if(!checkPlayerExists) {
+//				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
+//			}else {
+//				pending.put(chatId, messageTextReceived);
+//			}
+//			break;
+//		case Tokens.command5:
+//			checkPlayerExists = checkPlayer(chatId);
+//			if(!checkPlayerExists) {
+//				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
+//			}else {
+//				pending.put(chatId, messageTextReceived);
+//			}
+//			break;
+//		case Tokens.command6:
+//			checkPlayerExists = checkPlayer(chatId);
+//			if(!checkPlayerExists) {
+//				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
+//			}else {
+//				String[] playerStat= consultarStats(chatId);
+//				message = new SendMessage().setChatId(chatId).setText("Nivel: " + playerStat[0] + "\nAtaque: " + playerStat[1] + "\nDefensa: " 
+//							+ playerStat[2] + "\nExperiencia: " + playerStat[3]+ "\\10\nDefensa activa: " + playerStat[4]);
+//			}
+//			break;
+//		default:
+//			message = new SendMessage().setChatId(chatId).setText("Comando no valido.");				
+//			break;
+//		}
+//		try {
+//			// Se envía el mensaje
+//			execute(message);
+//		} catch (TelegramApiException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Método para consultar los stats de un jugador
@@ -236,13 +250,13 @@ public class TelegramBot extends TelegramLongPollingBot{
 	/**
 	 * Enviar un mensaje al usuario
 	 */
-	public void sendMessageToUser(long id, String text) {
-		try {
-			SendMessage message = new SendMessage().setChatId(id).setText(text);
-			execute(message);
-		} catch (TelegramApiException e) {
-			e.printStackTrace();
-		}
-	}
-
+//	public void sendMessageToUser(long id, String text) {
+//		try {
+//			SendMessage message = new SendMessage().setChatId(id).setText(text);
+//			execute(message);
+//		} catch (TelegramApiException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
 }
