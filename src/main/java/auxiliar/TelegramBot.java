@@ -47,11 +47,11 @@ public class TelegramBot extends TelegramLongPollingBot{
 		Message msg = update.getMessage();
 		boolean checkPlayerExists = false;
 		switch(messageTextReceived) {
-		case Tokens.command1:
+		case Tokens.command1: //ayuda
 			message = new SendMessage().setChatId(chatId).setText("Bienvenido! \n Primero, "
 					+ "deberás crear un personaje, utiliza el comando /crearpj para crearlo. \n Una vez creado, podrás lanzarte a la aventura!");
 			break;
-		case Tokens.command2:
+		case Tokens.command2: //crearpnj
 			String sql = Tokens.createPJ;
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
@@ -62,7 +62,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 				e1.printStackTrace();
 			}
 			break;
-		case Tokens.command3:
+		case Tokens.command3: //atacarnpc
 			SendMessage answer = new SendMessage();
 			answer.enableMarkdown(true);
 			answer.setReplyMarkup(getSettingsKeyboard(Tokens.command31, Tokens.command32));
@@ -71,7 +71,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 			answer.setText(Tokens.command1);
 			message = sendChooseOptionMessage(chatId, msg.getMessageId(), getSettingsKeyboard(Tokens.command31, Tokens.command32));
 			break;
-		case Tokens.command31:
+		case Tokens.command31: //lobo
 			checkPlayerExists = checkPlayer(chatId);
 			if(!checkPlayerExists) {
 				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
@@ -80,7 +80,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 				pending.put(chatId, messageTextReceived);
 			}
 			break;
-		case Tokens.command32:
+		case Tokens.command32: //jabali
 			checkPlayerExists = checkPlayer(chatId);
 			if(!checkPlayerExists) {
 				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
@@ -89,7 +89,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 				pending.put(chatId, messageTextReceived);
 			}
 			break;
-		case Tokens.command4:
+		case Tokens.command4: //atacarjugador
 			checkPlayerExists = checkPlayer(chatId);
 			if(!checkPlayerExists) {
 				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
@@ -97,7 +97,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 				pending.put(chatId, messageTextReceived);
 			}
 			break;
-		case Tokens.command5:
+		case Tokens.command5: //defenserse
 			checkPlayerExists = checkPlayer(chatId);
 			if(!checkPlayerExists) {
 				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
@@ -105,7 +105,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 				pending.put(chatId, messageTextReceived);
 			}
 			break;
-		case Tokens.command6:
+		case Tokens.command6: //consultarstats
 			checkPlayerExists = checkPlayer(chatId);
 			if(!checkPlayerExists) {
 				message = new SendMessage().setChatId(chatId).setText(Tokens.pjNoExiste);
