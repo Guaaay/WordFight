@@ -26,7 +26,7 @@ public class AgentOutput extends AgentBase{
 			ACLMessage input = receive();
 			if(input != null) {
 				String[] inputArgument = input.getContent().split("_");
-				long id = Long.parseLong(inputArgument[0]);
+				String id = inputArgument[0];
 				String text = inputArgument[1];
 				tb.sendMessageToUser(id, text);
 			}

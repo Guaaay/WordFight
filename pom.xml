@@ -13,6 +13,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+  		<maven.compiler.source>11</maven.compiler.source>
+ 		<maven.compiler.target>11</maven.compiler.target>
+
 	</properties>
 
 	<dependencyManagement>
@@ -28,12 +32,26 @@
 		</dependencyManagement>
 		
 	<dependencies>
-
+	   <dependency>
+	      <groupId>org.telegram</groupId>
+	      <artifactId>telegrambots</artifactId>
+	      <version>6.0.1</version>
+	   </dependency>
 
 		<dependency>
     		<groupId>com.google.cloud</groupId>
     		<artifactId>google-cloud-language</artifactId>
  		</dependency>
+ 		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>1.7.32</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-simple</artifactId>
+		    <version>1.7.32</version>
+		</dependency>
  		 
 	</dependencies>
 </project>

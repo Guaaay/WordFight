@@ -3,8 +3,11 @@ package agent.agentExercise;
 
 import java.util.Map;
 
+
+import org.telegram.telegrambots.*;
 import org.telegram.telegrambots.meta.*;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import agent.launcher.AgentBase;
 import agent.launcher.AgentModel;
@@ -28,9 +31,10 @@ public class AgentInput extends AgentBase{
 		// Se inicializa el contexto de la API
 		//ApiContextInitializer.init();
 		// Se crea un nuevo Bot API
-		TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+		
 		//Se registra el bot
 		try {
+			TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
 			botsApi.registerBot(new TelegramBot());
 		} catch (TelegramApiException e) {
 			e.printStackTrace();

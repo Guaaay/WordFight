@@ -13,17 +13,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.*;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 
-public class TelegramBot {
+
+
+public class TelegramBot extends TelegramLongPollingBot{
 
 	public static HashMap<Long,String> pending;
 	private Connection conn;
@@ -39,16 +38,7 @@ public class TelegramBot {
 	@Override
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage() && update.getMessage().hasText()) {
-			SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
-			message.setChatId(update.getMessage().getChatId().toString());
-			message.setText("Preparado para usar tus pa,labras para el bien... o quisas el mal.... ;DDDDDD");
-
-			try {
-				execute(message); // Call method to send the message
-			} catch (TelegramApiException e) {
-				e.printStackTrace();
-
-			}
+			sendMessageToUser(update.getMessage().getChatId().toString(), "Preparado para usar tus pa,labras para el bien... o quisas el mal.... ;DDDDDD");
 		}
 
 	}
@@ -190,32 +180,32 @@ public class TelegramBot {
 	/**
 	 * Método para seleccionar opciones dentro de un teclado
 	 */
-	private static ReplyKeyboardMarkup getSettingsKeyboard(String firstOption, String secondOption) {
-		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-		replyKeyboardMarkup.setSelective(true);
-		replyKeyboardMarkup.setResizeKeyboard(true);
-		replyKeyboardMarkup.setOneTimeKeyboard(false);
-		List<KeyboardRow> keyboard = new ArrayList<>();
-		KeyboardRow keyboardFirstRow = new KeyboardRow();
-		keyboardFirstRow.add(firstOption);
-		keyboardFirstRow.add(secondOption);
-		keyboard.add(keyboardFirstRow);
-		replyKeyboardMarkup.setKeyboard(keyboard);
-		return replyKeyboardMarkup;
-	}
+//	private static ReplyKeyboardMarkup getSettingsKeyboard(String firstOption, String secondOption) {
+//		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+//		replyKeyboardMarkup.setSelective(true);
+//		replyKeyboardMarkup.setResizeKeyboard(true);
+//		replyKeyboardMarkup.setOneTimeKeyboard(false);
+//		List<KeyboardRow> keyboard = new ArrayList<>();
+//		KeyboardRow keyboardFirstRow = new KeyboardRow();
+//		keyboardFirstRow.add(firstOption);
+//		keyboardFirstRow.add(secondOption);
+//		keyboard.add(keyboardFirstRow);
+//		replyKeyboardMarkup.setKeyboard(keyboard);
+//		return replyKeyboardMarkup;
+//	}
 
 	/**
 	 * Responder al usuario (con el teclado generado en getSettingsKeyboard)
 	 */
-	private static SendMessage sendChooseOptionMessage(Long chatId, Integer messageId, ReplyKeyboard replyKeyboard) {
-		SendMessage sendMessage = new SendMessage();
-		sendMessage.enableMarkdown(true);
-		sendMessage.setChatId(chatId.toString());
-		sendMessage.setReplyToMessageId(messageId);
-		sendMessage.setReplyMarkup(replyKeyboard);
-		sendMessage.setText("Elegir opción");
-		return sendMessage;
-	}
+//	private static SendMessage sendChooseOptionMessage(Long chatId, Integer messageId, ReplyKeyboard replyKeyboard) {
+//		SendMessage sendMessage = new SendMessage();
+//		sendMessage.enableMarkdown(true);
+//		sendMessage.setChatId(chatId.toString());
+//		sendMessage.setReplyToMessageId(messageId);
+//		sendMessage.setReplyMarkup(replyKeyboard);
+//		sendMessage.setText("Elegir opción");
+//		return sendMessage;
+//	}
 
 	/**
 	 * Se devuelve el nombre que dimos al bot al crearlo con el BotFather
@@ -247,16 +237,19 @@ public class TelegramBot {
 		
 	}
 
+
 	/**
 	 * Enviar un mensaje al usuario
 	 */
-//	public void sendMessageToUser(long id, String text) {
-//		try {
-//			SendMessage message = new SendMessage().setChatId(id).setText(text);
-//			execute(message);
-//		} catch (TelegramApiException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
+	public void sendMessageToUser(String id, String text) {
+		try {
+			SendMessage message = new SendMessage();
+			message.setChatId(id);
+			message.setText(text);
+			execute(message);
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
