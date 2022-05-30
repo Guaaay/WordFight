@@ -24,7 +24,7 @@ public class AnalyserTest {
 	}
 	
 	public static void main(String [] args) {
-		String sentiment = "";
+		String sentiment = "Hola que tal jiji jojo";
 		getSentiment(sentiment);
 	}
 }

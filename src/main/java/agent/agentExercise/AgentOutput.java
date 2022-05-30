@@ -27,8 +27,12 @@ public class AgentOutput extends AgentBase{
 			if(input != null) {
 				String[] inputArgument = input.getContent().split("_");
 				String id = inputArgument[0];
-				String text = inputArgument[1];
-				tb.sendMessageToUser(id, text);
+				String daño = inputArgument[1];
+				String respuesta = inputArgument[2];
+				String briefing = inputArgument[3];
+				tb.sendMessageToUser(id, daño);
+				tb.sendMessageToUser(id, respuesta);
+				tb.sendMessageToUser(id, briefing);
 			}
 			block();
 		}

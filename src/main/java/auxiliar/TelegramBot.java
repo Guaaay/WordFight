@@ -39,11 +39,19 @@ public class TelegramBot extends TelegramLongPollingBot{
 	public void onUpdateReceived(Update update) {
 		String userChatId;
 		String userMessage;
+		String texto = "";
 
 		if (update.hasMessage() && update.getMessage().hasText()) {
 			//sendMessageToUser(update.getMessage().getChatId().toString(), "Preparado para usar tus pa,labras para el bien... o quisas el mal.... ;DDDDDD");
 			userMessage = update.getMessage().getText();
 			userChatId = update.getMessage().getChatId().toString();
+			String [] args = userMessage.split(" ", 2);
+			userMessage = args[0];
+			if(args.length > 1) {
+				texto = args[1];
+				System.out.println(texto);
+			}
+			
 			switch(userMessage) {
 			case Tokens.command1:
 				sendMessageToUser(userChatId, "¡Bienvenido a WordBender! Empieza una batalla con /battle");
@@ -88,7 +96,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 					else {
 						//El usuario está peleando
 						PreparedStatement pst = conn.prepareStatement(Tokens.setBattle);
-						pst.setString(1, userChatId);
+						pst.setString(1, userChatId);	
 						int res = pst.executeUpdate();
 
 						//Asignamos un monstruo al usuario
@@ -139,7 +147,26 @@ public class TelegramBot extends TelegramLongPollingBot{
 					e.printStackTrace();
 				}
 				break;
+			case Tokens.command5:
+				
+				try {
+					String query = Tokens.isInBattle + userChatId;
+					Statement stmt = conn.createStatement();
+
+					ResultSet rs = stmt.executeQuery(query);
+					rs.next();
+					if(rs.getInt("isPeleando") == 0) {
+						sendMessageToUser(userChatId, "¡No estás en una pelea! Usa el comando /battle para entrar en una");
+						break;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				pending.put(userChatId, userMessage + "_" + texto);
+				break;
 			}
+
 		}
 
 	}
