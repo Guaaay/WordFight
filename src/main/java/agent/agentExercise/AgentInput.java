@@ -46,7 +46,7 @@ public class AgentInput extends AgentBase{
 		@Override
 		public void action() {
 			if(TelegramBot.pending.entrySet().iterator().hasNext()) {
-				Map.Entry<Long,String> entry = TelegramBot.pending.entrySet().iterator().next();
+				Map.Entry<String,String> entry = TelegramBot.pending.entrySet().iterator().next();
 				AgentContainer c = getContainerController();
 				AgentController ac;
 				String[] args = new String[2];
