@@ -128,7 +128,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 						String intro = rs.getString(Tokens.FraseIntro);
 
 						sendMessageToUser(userChatId, intro);
-						sendMessageToUser(userChatId, "¡Has comenzado una pelea! Usa /ataque seguido de lo que le quieres decir al monstruo para luchar con tus palabras. CAMBIAR");
+						sendMessageToUser(userChatId, "¡Has comenzado una pelea! Usa /ataque seguido de lo que le quieres decir al monstruo para luchar con tus palabras.");
 					}
 				}
 				catch (SQLException e) {
@@ -147,7 +147,7 @@ public class TelegramBot extends TelegramLongPollingBot{
 					pst = conn.prepareStatement(Tokens.resetVictories);
 					pst.setString(1, userChatId);
 					res = pst.executeUpdate();
-					sendMessageToUser(userChatId, "¡Cobarde! Huyes de la batalla. Tus racha de victorias es 0");
+					sendMessageToUser(userChatId, "¡Cobarde! Huyes de la batalla. Tu racha de victorias es 0");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

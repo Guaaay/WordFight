@@ -53,7 +53,7 @@ public class AgentInput extends AgentBase{
 				args[0] = entry.getKey().toString();
 				args[1] = entry.getValue();
 				try {
-					ac=c.createNewAgent(AgentProcess.NICKNAME+Math.random()*100, AgentProcess.class.getName(), args);
+					ac=c.createNewAgent(AgentAnalyzer.NICKNAME+Math.random()*100,AgentAnalyzer.class.getName(), args);
 					ac.start();
 				} catch (StaleProxyException e) {
 					e.printStackTrace();

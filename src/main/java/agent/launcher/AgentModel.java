@@ -3,10 +3,10 @@ package agent.launcher;
 public enum AgentModel {
 
 	INPUT("Input"),
-	PROCESS("Process"),
+	ANALYZER("Analyzer"),
 	OUTPUT("Output"),
-	DESCONOCIDO("Desconocido"),
-	ANALYZER("Analyzer");
+	DESCONOCIDO("Desconocido");
+
 
 	private final String value;
 
@@ -22,12 +22,11 @@ public enum AgentModel {
 		switch (value) {
 		case "Input":
 			return INPUT;
-		case "Process":
-			return PROCESS;
-		case "Output":
-			return OUTPUT;
 		case "Analyzer":
 			return ANALYZER;
+		case "Output":
+			return OUTPUT;
+
 		default:
 			return DESCONOCIDO;
 		}

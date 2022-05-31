@@ -24,7 +24,7 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class AgentProcess extends AgentBase {
+public class AgentAnalyzer extends AgentBase {
 
 	private static final long serialVersionUID = 1L;
 	public static final String NICKNAME = "Process";
@@ -34,7 +34,7 @@ public class AgentProcess extends AgentBase {
 
 	protected void setup(){
 		super.setup();
-		this.type = AgentModel.PROCESS;
+		this.type = AgentModel.ANALYZER;
 		idTelegram = this.params[0];
 		text = this.params[1];
 		addBehaviour(new Process());
@@ -142,7 +142,7 @@ public class AgentProcess extends AgentBase {
 					//Significa que no le hacemos nada de daño
 					if(tipo == 1 || tipo == 2) 
 						respuesta = notHurt_neg;
-					else 
+					else
 						respuesta = notHurt_pos;
 					daño = 0;
 					
@@ -153,23 +153,18 @@ public class AgentProcess extends AgentBase {
 						respuesta = notHurt_pos;
 					else 
 						respuesta = notHurt_neg;
-					
-					
-					PreparedStatement pst;
-					pst = conn.prepareStatement(Tokens.incDaño);
-					pst.setDouble(1, Math.abs(daño));
-					pst.setString(2, idTelegram);
-					pst.executeUpdate();
 				}
 				else {
 					//Significa que le hacemos mucho daño
 					respuesta = hurt;
-					PreparedStatement pst;
-					pst = conn.prepareStatement(Tokens.incDaño);
-					pst.setDouble(1, Math.abs(daño));
-					pst.setString(2, idTelegram);
-					pst.executeUpdate();
 				}
+				
+				PreparedStatement pst;
+				pst = conn.prepareStatement(Tokens.incDaño);
+				pst.setDouble(1, Math.abs(daño));
+				pst.setString(2, idTelegram);
+				pst.executeUpdate();
+				
 				DecimalFormat df = new DecimalFormat("#.##");
 				df.setRoundingMode(RoundingMode.CEILING);
 				
@@ -181,7 +176,6 @@ public class AgentProcess extends AgentBase {
 					//Hemos ganado
 					respuesta = derrota;
 					//Tenemos que actualizar los datos:
-					PreparedStatement pst;
 					pst = conn.prepareStatement(Tokens.incVictories);
 					pst.setString(1, idTelegram);
 					pst.executeUpdate();
@@ -211,7 +205,6 @@ public class AgentProcess extends AgentBase {
 							+ " victorias seguidas. Vuelve a hacer /battle para entrar en otra pelea.";
 				}
 				else {
-					PreparedStatement pst;
 					if(turnos_actual + 1 > turnos_max) {
 						//Hemos perdido
 						pst = conn.prepareStatement(Tokens.resetVictories);
@@ -266,7 +259,7 @@ public class AgentProcess extends AgentBase {
 						daño = daño * -1;
 					}
 					else {
-						daño = sentiment * 10 + magnitude / 5;
+						daño = sentiment * 10 + magnitude;
 					}
 				}
 				break;
@@ -281,7 +274,7 @@ public class AgentProcess extends AgentBase {
 						daño = daño * -1;
 					}
 					else {
-						daño = sentiment * 20 + magnitude / 5;
+						daño = sentiment * 20 + magnitude;
 					}
 				}
 				break;
@@ -296,7 +289,7 @@ public class AgentProcess extends AgentBase {
 						daño = daño*-1;
 					}
 					else {
-						daño =  Math.abs(sentiment) * 20 + magnitude / 5;
+						daño =  Math.abs(sentiment) * 20 + magnitude;
 					}
 				}
 				break;
