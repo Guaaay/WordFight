@@ -15,6 +15,7 @@ public class Tokens {
     public static final String command3 = "/battle";
     public static final String command4 = "/huir";
     public static final String command5 = "/ataque";
+    public static final String command6 = "/help";
    
     
 

@@ -1,11 +1,13 @@
 package agent.agentExercise;
 
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.google.cloud.language.v1.Document;
@@ -119,7 +121,7 @@ public class AgentProcess extends AgentBase {
 				victorias = rs.getInt("usuario.victorias");
 				max_victorias = rs.getInt("usuario.max_victorias");
 
-
+				
 				//Cogemos las frases del monstruo;
 				query = Tokens.getFrasesMonstruo + "\"" +  nombre_monstruo + "\"";
 				stmt = conn.createStatement();
@@ -168,9 +170,11 @@ public class AgentProcess extends AgentBase {
 					pst.setString(2, idTelegram);
 					pst.executeUpdate();
 				}
+				DecimalFormat df = new DecimalFormat("#.##");
+				df.setRoundingMode(RoundingMode.CEILING);
 				
 				daño_mensaje = "Tu texto ha sido evaluado con un sentimento de " + sentiment + " y una magnitud de " + magnitude +
-						". El daño realizado es " + Math.abs(daño) + ". Al monstruo le quedan " + (vida_total - daño_pelea - Math.abs(daño)) + " puntos de vida.";
+						". El daño realizado es " + df.format(Math.abs(daño)) + ". Al monstruo le quedan " +  df.format((vida_total - daño_pelea - Math.abs(daño))) + " puntos de vida.";
 				
 				//Miramos si hemos ganado o perdido.
 				if(daño + daño_pelea >= vida_total) {
@@ -202,7 +206,9 @@ public class AgentProcess extends AgentBase {
 					pst.setString(1, idTelegram);
 					pst.executeUpdate();
 
-					briefing = "¡Has derrotado a " + nombre_monstruo + "! Estás en una racha de " + (victorias + 1) + " victorias. Tu record personal son " + (max_victorias + 1) + " victorias seguidas.";
+					briefing = "¡Has derrotado a " + nombre_monstruo + "! Estás en una racha de " + (victorias + 1) 
+							+ " victorias. Tu record personal son " + (max_victorias + 1) 
+							+ " victorias seguidas. Vuelve a hacer /battle para entrar en otra pelea.";
 				}
 				else {
 					PreparedStatement pst;
