@@ -303,7 +303,7 @@ public class AgentAnalyzer extends AgentBase {
 						daño = daño*-1;
 					}
 					else {
-						daño =  Math.abs(sentiment) * 10 + magnitude / 5;
+						daño =  Math.abs(sentiment) * 10 + magnitude;
 					}
 				}
 				break;

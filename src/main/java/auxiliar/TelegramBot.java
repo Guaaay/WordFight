@@ -182,6 +182,8 @@ public class TelegramBot extends TelegramLongPollingBot{
 						+ "/huir Huyes de la batalla, pero tu racha de victorias se va a 0.");
 				
 				break;
+			default:
+				sendMessageToUser(userChatId, "Comando no válido. Usa /help para ver los comandos disponibles.");
 			}
 
 		}

@@ -20,7 +20,7 @@ SELECT monstruo.nombre,
 	 usuario.daño_pelea,
 	 usuario.turnos_pelea, 
 	 usuario.max_victorias, 
-     usuario.victorias FROM monstruo INNER JOIN usuario ON monstruo.nombre=usuario.nombre_monstruo WHERE usuario.id=16741348;
+     usuario.victorias FROM monstruo INNER JOIN usuario ON monstruo.nombre=usuario.nombre_monstruo WHERE usuario.id=867137636;
      
 UPDATE `wordbender`.`usuario` SET `nombre_monstruo` = "Diva" WHERE (`id` = (?));
 SELECT * FROM usuario;
